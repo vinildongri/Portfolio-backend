@@ -16,6 +16,12 @@ app.use(cors({
     credentials: true,
 }));
 
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL,
+//   methods: [ "POST"],
+//   credentials: true
+// }));
+
 
 app.use(express.json());
 
