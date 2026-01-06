@@ -7,11 +7,9 @@ dotenv.config();
 
 const app = express();
 
-// --- THE CORS BLOCK ---
 const allowedOrigins = [
     "https://portfolio-frontend-nine-indol.vercel.app",
     "http://localhost:3000",
-    "http://localhost:5173"
 ];
 
 app.use(cors({
@@ -26,13 +24,12 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true
 }));
-// --- END CORS BLOCK ---
-
-// app.options('*', cors());  <-- I REMOVED THIS LINE TO FIX THE CRASH
 
 app.use(express.json());
 app.use("/api/v1", contactRoutes);
 
-app.listen(process.env.PORT || 5000, () => {
-    console.log(`Server started in ${process.env.NODE_ENV} mode`);
+ app.listen(process.env.PORT, () => {
+    console.log(
+        `Server started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode`
+    );
 });
