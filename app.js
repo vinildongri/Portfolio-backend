@@ -7,28 +7,26 @@ dotenv.config();
 
 const app = express();
 
-// app.use(cors({
-//     origin: "https://vinilportfolio.com" 
-// }));
-
-app.use(cors({
-    origin: process.env.FRONTEND_URL,  // your frontend URL
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ["POST", "GET", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-}));
-
-// app.use(cors({
-//   origin: process.env.FRONTEND_URL,
-//   methods: [ "POST"],
-//   credentials: true
-// }));
-
+  })
+);
 
 app.use(express.json());
-
 app.use("/api/v1", contactRoutes);
 
-app.listen(process.env.PORT, () => {
+/* ✅ LOCAL ONLY */
+if (process.env.NODE_ENV !== "production") {
+  app.listen(process.env.PORT, () => {
     console.log(
-        `Server started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode`
+      `Server started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode`
     );
-});
+  });
+}
+
+/* ✅ VERCEL */
+export default app;
